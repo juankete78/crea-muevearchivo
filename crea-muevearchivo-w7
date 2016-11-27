@@ -1,0 +1,31 @@
+#!/usr/bin/python
+#coding: utf-8
+
+# programa para seleccionar todos los archivos .txt crear carpeta con mismo nombre y meter el archivo txt en su carpeta
+#ademas informa sobre las carpetas nuevas creadas y los archivos que ya tiene la carpeta creada anteriormente
+
+import os
+import shutil
+
+
+src_dir = "C:\\Users\\JC\\Desktop\\test\\"
+dst_dir = "C:\\Users\\JC\\Desktop\\test\\"
+
+
+for file in os.listdir(src_dir):
+    if file.endswith(".txt"): #solo selecciona los *.txt
+
+        x = os.path.splitext(os.path.basename(file))[0] # elimina la extensión
+
+        dst_filetemp = os.path.join(dst_dir, x) #crea temporal la ruta con la carpeta nueva
+        if not os.path.exists(dst_filetemp): # si no existe esta ruta
+            os.makedirs(x) #creas la carpeta sin extension
+            print ("carpeta" + " " + x + " " + "creada")
+        else:
+            print ("carpeta" + " " + x + " " + "ya ha sido creada")
+            #print("\033[1;32;40m Bright Green")
+            continue
+
+	if os.path.isfile(file):   #si es un archivo y no un directorio
+		dst_file = os.path.join(dst_dir, x) # dst_dir = "/home/jc/pythonjc/textprove/ + la carpeta creada
+		shutil.move(file, dst_file) # mueve archivo a la nueva carpeta creada con mismo nombre
